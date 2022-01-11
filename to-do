@@ -1,0 +1,14 @@
+Create list of cards by value.
+
+draw - function to draw a random card
+deal - draw 2x for player and dealer, display both for player and 2nd one for dealer
+
+input = 
+  
+  hit = draw
+  stay = calculate winner
+  
+
+issues
+  getting ace to be 11 or 1, depending on total
+  getting dealer to draw if total < 17
