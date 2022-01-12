@@ -1,0 +1,143 @@
+############### Blackjack Project #####################
+
+import random
+import art
+import subprocess 
+
+subprocess.call("clear")
+
+
+
+
+def draw_card(hand):
+    ''' (int) -> int
+    adds a random value from list 'cards' to
+    the specified list 'hand'.
+    draw_card(player_hand)
+    [7, 10]'''
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    return hand.append(cards[random.randint(0, 12)])
+
+# def start_game():
+#     player_hand = []
+#     computer_hand = []
+#     draw_card(player_hand)
+#     draw_card(player_hand)
+#     draw_card(computer_hand)
+#     return player_hand
+#     return computer_hand
+
+def change_ace(hand):
+    '''(int) -> int
+    Change the '11' value to '1' in a hand(list)
+    '''
+    for x in range (0, len(hand)):
+        if hand[x] == 11:
+            hand[x] = 1
+        else:
+            hand[x] = hand[x]
+
+# def check_blackjack(hand):
+#     if sum(hand) == 21 and len(hand) == 2:
+#         return 0
+
+def computer_turn(computer_hand):
+    computer_total = sum(computer_hand)
+    while sum(computer_hand) < 17:
+        draw_card(computer_hand)
+        computer_total = sum(computer_hand)
+        if computer_total > 21:
+            change_ace(computer_hand)
+            computer_total = sum(computer_hand)
+        if computer_total > 17 and computer_total < 21:
+            computer_total = sum(computer_hand)
+            return computer_total
+    return computer_total
+
+
+def blackjack():
+    
+    print (art.logo)
+    # play = True
+    # # Getting the play cycle loop to work
+    # while play == True:
+    # play = False
+    player_hand = []
+    computer_hand = []
+    draw_card(player_hand)
+    draw_card(player_hand)
+    draw_card(computer_hand)
+
+    player_total = sum(player_hand)
+    computer_total = sum(computer_hand)
+
+    print (f"Your cards: {player_hand}, current score: {player_total}")
+    print (f"Computer's first card: {computer_hand[0]} \n")
+
+    should_draw = True
+    while should_draw and player_total < 22:
+        if input("Type 'y' to get another card, type 'n' to pass: \n") == "y":
+            draw_card(player_hand)
+            player_total = sum(player_hand)
+            if player_total > 21:
+                change_ace(player_hand)
+                player_total = sum(player_hand)
+            print (f"Your cards: {player_hand}, current score: {player_total}")
+        else:
+            should_draw = False
+
+    computer_total = computer_turn(computer_hand)
+
+    print (f"Your final hand: {player_hand}, final score: {player_total}")
+    print (f"Computer's final hand: {computer_hand}, final score: {computer_total}\n")
+
+    # # Scoring and outcomes
+    # check_blackjack(player_hand)
+    # check_blackjack(computer_hand)
+    a = "You win!"
+    b = "You lose."
+    # if player_total > computer_total:
+    #     differential = 1
+    # elif player_total == computer_total:
+    #     differential = 2
+    # else:
+    #     differential = 3
+
+    if player_total > 21 and computer_total > 21:
+        print (f"You went over. {b}")
+    elif player_total > 21 and computer_total < 21:
+        print (f"You went over. {b}")
+    elif player_total == computer_total and player_total == 0:
+        print ("Draw.")
+    elif player_total == computer_total:
+        print ("Draw.")
+    elif player_total == 21 and len(player_hand) == 2:
+        print ("You win with Blackjack!")
+        print (art.logo)
+    elif player_total == 21:
+        print ("You win with 21!")
+    elif computer_total == 21:
+        print (f"{b}")
+    elif player_total > computer_total and player_total < 21:
+        print (f"{a}")
+    elif computer_total > player_total and computer_total < 21:
+        print (f"{b}")
+    else:
+        print (f"{a}")
+         # Getting the play cycle loop to work
+    # cont = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
+    # if cont == 'y':
+    #     play = True
+    # else:
+    #     play = False
+
+# Getting the play cycle loop to work 
+# cont = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
+# if cont == 'y':
+#     blackjack ()
+# else:
+#     play = False
+while input ("\nDo you want to play a game of Blackjack? Type 'y' or 'n': ") == 'y':
+    subprocess.call("clear")
+    blackjack()
+
